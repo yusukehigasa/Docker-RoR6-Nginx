@@ -30,6 +30,18 @@ default: &default
   host: db # <- Service Name of docker-compose.yml
 ```
 
+### Modify `config/puma.rb`
+```[ruby]
+max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+~~~
+plugin :tmp_restart
+
+# Add this codes
+app_root = File.expand_path("../..", __FILE__)
+bind "unix://#{app_root}/tmp/sockets/puma.sock"
+stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
+```
+
 ### Build the docker containers
 ```
 $ docker-compose build
