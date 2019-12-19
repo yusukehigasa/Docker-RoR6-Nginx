@@ -58,6 +58,17 @@ $ docker-compose build
 $ docker-compose run app rails webpacker:install
 ```
 
+### Modify `config/webpacker.yml`
+Replace true with false about check_yarn_integrity when development environment
+```[yml]
+~~~
+development:
+  <<: *default
+  ~~~
+  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
+  check_yarn_integrity: false
+```
+
 ### Run the docker containers
 ```
 $ docker-compose up
